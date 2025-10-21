@@ -32,18 +32,40 @@ export default function QuestionnairePage() {
 
   const isLastQuestion = currentQuestionIndex === questions.length - 1
   const isFirstQuestion = currentQuestionIndex === 0
+  const isQuestionAnswered = (question: typeof questions[number]) => {
+    const ans = answers.get(question.id)
 
-  const isCurrentQuestionAnswered =
-    answers.has(currentQuestion.id) &&
-    (Array.isArray(answers.get(currentQuestion.id))
-      ? (answers.get(currentQuestion.id) as string[]).length > 0
-      : answers.get(currentQuestion.id) !== "")
+    if (question.type === "multipleAnswer") {
+      return Array.isArray(ans) && ans.length > 0
+    }
 
-  const answeredQuestions = new Set(
-    Array.from(answers.keys())
-      .map((id) => questions.findIndex((q) => q.id === id))
-      .filter((index) => index !== -1),
-  )
+    if (question.type === "repeatable") {
+      // structured repeatable entries
+      if (question.entryFields && question.entryFields.length > 0) {
+        if (!Array.isArray(ans) || ans.length === 0) return false
+        return (ans as Array<Record<string, string>>).every((entry) =>
+          question.entryFields!.every((f) => {
+            const v = (entry || {})[f.key]
+            return typeof v === "string" && v.trim() !== ""
+          }),
+        )
+      }
+
+      // simple repeatable (string[])
+      return Array.isArray(ans) && ans.length > 0 && (ans as string[]).every((s) => typeof s === "string" && s.trim() !== "")
+    }
+
+    // default: text or multipleChoice stored as a string
+    if (typeof ans === "string") return ans.trim() !== ""
+    return ans !== undefined && ans !== null
+  }
+
+  const isCurrentQuestionAnswered = isQuestionAnswered(currentQuestion)
+
+  const answeredQuestions = new Set<number>()
+  questions.forEach((q, idx) => {
+    if (isQuestionAnswered(q)) answeredQuestions.add(idx)
+  })
 
   skippedQuestions.forEach((index) => answeredQuestions.add(index))
 
@@ -77,11 +99,16 @@ export default function QuestionnairePage() {
     clearAnswers()
   }
 
-  const handleAnswerChange = (value: string | string[]) => {
+  const handleAnswerChange = (value: string | string[] | Array<Record<string, string>>) => {
     const isEmpty = Array.isArray(value) ? value.length === 0 : value === ""
 
     if (isEmpty) {
-      updateAnswer(currentQuestion.id, currentQuestion.type === "multipleAnswer" ? [] : "")
+      // For multipleAnswer and repeatable (structured or simple) use empty array, otherwise empty string
+      if (currentQuestion.type === "multipleAnswer" || currentQuestion.type === "repeatable") {
+        updateAnswer(currentQuestion.id, [])
+      } else {
+        updateAnswer(currentQuestion.id, "")
+      }
     } else {
       updateAnswer(currentQuestion.id, value)
     }
@@ -98,6 +125,12 @@ export default function QuestionnairePage() {
     if (currentQuestion.type === "multipleAnswer") {
       return Array.isArray(answer) ? answer : []
     }
+
+    if (currentQuestion.type === "repeatable") {
+      // could be array of strings or array of structured objects
+      return Array.isArray(answer) ? answer : []
+    }
+
     return answer || ""
   }
 

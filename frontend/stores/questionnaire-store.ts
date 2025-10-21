@@ -7,7 +7,7 @@ interface QuestionnaireState {
   answers: Answer[]
   setCurrentQuestionIndex: (index: number) => void
   setAnswer: (answer: Answer) => void
-  updateAnswer: (questionId: string, value: string | string[]) => void
+  updateAnswer: (questionId: string, value: string | string[] | Array<Record<string, string>>) => void
   clearAnswers: () => void
 }
 
@@ -21,7 +21,7 @@ export const useQuestionnaireStore = create<QuestionnaireState>()(
         set((state) => ({
           answers: [...state.answers.filter((a) => a.questionId !== answer.questionId), answer],
         })),
-      updateAnswer: (questionId: string, value: string | string[]) =>
+      updateAnswer: (questionId: string, value: string | string[] | Array<Record<string, string>>) =>
         set((state) => ({
           answers: [...state.answers.filter((a) => a.questionId !== questionId), { questionId, value }],
         })),
