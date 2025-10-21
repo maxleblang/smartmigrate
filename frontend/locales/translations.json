@@ -1,0 +1,35 @@
+{
+  "en": {
+    "selectLanguage": "Select Your Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "french": "French",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "progress": "Progress",
+    "question": "Question"
+  },
+  "es": {
+    "selectLanguage": "Seleccione su idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "french": "Francés",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "progress": "Progreso",
+    "question": "Pregunta"
+  },
+  "fr": {
+    "selectLanguage": "Sélectionnez votre langue",
+    "english": "Anglais",
+    "spanish": "Espagnol",
+    "french": "Français",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "progress": "Progrès",
+    "question": "Question"
+  }
+}
