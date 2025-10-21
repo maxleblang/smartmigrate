@@ -1,10 +1,10 @@
 "use client"
 
-import { useTranslation } from "@/contexts/language-context"
 import { cn } from "@/lib/utils"
 import { Check, ChevronDown } from "lucide-react"
 import { useState } from "react"
 import type { Question } from "@/lib/types"
+import { useLanguageStore } from "@/stores/language-store"
 
 interface MobileProgressProps {
   questions: Question[]
@@ -23,7 +23,7 @@ export function MobileProgress({
   skippedQuestions,
   onQuestionClick,
 }: MobileProgressProps) {
-  const { t, language } = useTranslation()
+  const { t, language } = useLanguageStore()
   const [isOpen, setIsOpen] = useState(false)
 
   const currentQuestionName = questions[currentQuestion]?.name[language] || `${t("question")} ${currentQuestion + 1}`

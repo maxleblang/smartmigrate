@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-import { useTranslation } from "@/contexts/language-context"
 import { questions } from "@/lib/questions"
 import { getVisibleQuestions, getSkippedQuestions } from "@/lib/question-utils"
 import { ProgressTracker } from "@/components/progress-tracker"
@@ -10,12 +8,21 @@ import { QuestionCard } from "@/components/questions/question-card"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useLanguageStore } from "@/stores/language-store"
+import { useQuestionnaireStore } from "@/stores/questionnaire-store"
 
 export default function QuestionnairePage() {
-  const { t, language } = useTranslation()
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [answers, setAnswers] = useState<Map<string, string | string[]>>(new Map())
+  const { t, language } = useLanguageStore()
+  const { 
+    currentQuestionIndex, 
+    setCurrentQuestionIndex, 
+    answers: answersList,
+    updateAnswer,
+    clearAnswers
+  } = useQuestionnaireStore()
 
+  // Convert answers array to Map for compatibility with existing utils
+  const answers = new Map(answersList.map(a => [a.questionId, a.value]))
   const visibleQuestions = getVisibleQuestions(questions, answers)
   const skippedQuestions = getSkippedQuestions(questions, answers)
 
@@ -65,22 +72,19 @@ export default function QuestionnairePage() {
   }
 
   const handleSubmit = () => {
-    console.log("Submitted answers:", Object.fromEntries(answers))
+    console.log("Submitted answers:", answersList)
     alert("Questionnaire submitted! Check console for answers.")
+    clearAnswers()
   }
 
   const handleAnswerChange = (value: string | string[]) => {
-    const newAnswers = new Map(answers)
-
     const isEmpty = Array.isArray(value) ? value.length === 0 : value === ""
 
     if (isEmpty) {
-      newAnswers.delete(currentQuestion.id)
+      updateAnswer(currentQuestion.id, currentQuestion.type === "multipleAnswer" ? [] : "")
     } else {
-      newAnswers.set(currentQuestion.id, value)
+      updateAnswer(currentQuestion.id, value)
     }
-
-    setAnswers(newAnswers)
   }
 
   const handleQuestionClick = (index: number) => {

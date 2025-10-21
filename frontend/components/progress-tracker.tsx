@@ -1,9 +1,9 @@
 "use client"
 
-import { useTranslation } from "@/contexts/language-context"
 import { cn } from "@/lib/utils"
 import { Check } from "lucide-react"
 import type { Question } from "@/lib/types"
+import { useLanguageStore } from "@/stores/language-store"
 
 interface ProgressTrackerProps {
   questions: Question[]
@@ -22,7 +22,7 @@ export function ProgressTracker({
   skippedQuestions,
   onQuestionClick,
 }: ProgressTrackerProps) {
-  const { t, language } = useTranslation()
+  const { t, language } = useLanguageStore()
 
   return (
     <div className="bg-card border-r border-border h-full p-6">

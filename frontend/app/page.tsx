@@ -1,19 +1,19 @@
 "use client"
 
-import { useTranslation } from "@/contexts/language-context"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import { Globe } from "lucide-react"
+import { useLanguageStore } from "@/stores/language-store"
 
 export default function LanguageSelectionPage() {
-  const { setLanguage, t, language } = useTranslation()
+  const { setLanguage, t, language } = useLanguageStore()
   const router = useRouter()
 
   const handleLanguageSelect = (lang: "en" | "es" | "fr") => {
-    console.log("[v0] Language selected:", lang)
+    console.log("Language selected:", lang)
     setLanguage(lang)
     setTimeout(() => {
-      console.log("[v0] Navigating to questionnaire")
+      console.log("Navigating to questionnaire")
       router.push("/questionnaire")
     }, 100)
   }
@@ -24,7 +24,7 @@ export default function LanguageSelectionPage() {
     { code: "fr" as const, name: "Français", flag: "🇫🇷" },
   ]
 
-  console.log("[v0] Current language on selection page:", language)
+  console.log("Current language on selection page:", language)
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">

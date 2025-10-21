@@ -4,7 +4,7 @@ import type { Question } from "@/lib/types"
 import { TextInputQuestion } from "./text-input-question"
 import { MultipleChoiceQuestion } from "./multiple-choice-question"
 import { MultipleAnswerQuestion } from "./multiple-answer-question"
-import { useTranslation } from "@/contexts/language-context"
+import { useLanguageStore } from "@/stores/language-store"
 
 interface QuestionCardProps {
   question: Question
@@ -13,7 +13,7 @@ interface QuestionCardProps {
 }
 
 export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
-  const { language } = useTranslation()
+  const { language } = useLanguageStore()
 
   switch (question.type) {
     case "text":
