@@ -1,7 +1,7 @@
 "use client"
 
 import { questions } from "@/lib/questions"
-import { getVisibleQuestions, getSkippedQuestions } from "@/lib/question-utils"
+import { getVisibleQuestions, getSkippedQuestions, isQuestionValid } from "@/lib/question-utils"
 import { ProgressTracker } from "@/components/progress-tracker"
 import { MobileProgress } from "@/components/mobile-progress"
 import { QuestionCard } from "@/components/questions/question-card"
@@ -63,8 +63,16 @@ export default function QuestionnairePage() {
   const isCurrentQuestionAnswered = isQuestionAnswered(currentQuestion)
 
   const answeredQuestions = new Set<number>()
+  const invalidQuestions = new Set<number>()
   questions.forEach((q, idx) => {
-    if (isQuestionAnswered(q)) answeredQuestions.add(idx)
+    if (isQuestionAnswered(q)) {
+      answeredQuestions.add(idx)
+      // Check if the answered question is valid
+      const answer = answers.get(q.id)
+      if (!isQuestionValid(q, answer)) {
+        invalidQuestions.add(idx)
+      }
+    }
   })
 
   skippedQuestions.forEach((index) => answeredQuestions.add(index))
@@ -158,6 +166,7 @@ export default function QuestionnairePage() {
             currentQuestion={currentQuestionIndex}
             answeredQuestions={answeredQuestions}
             skippedQuestions={skippedQuestions}
+            invalidQuestions={invalidQuestions}
             onQuestionClick={handleQuestionClick}
           />
         </div>

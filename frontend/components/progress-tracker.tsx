@@ -12,6 +12,7 @@ interface ProgressTrackerProps {
   currentQuestion: number
   answeredQuestions: Set<number>
   skippedQuestions: Set<number>
+  invalidQuestions?: Set<number>
   onQuestionClick: (index: number) => void
 }
 
@@ -21,6 +22,7 @@ export function ProgressTracker({
   currentQuestion,
   answeredQuestions,
   skippedQuestions,
+  invalidQuestions = new Set(),
   onQuestionClick,
 }: ProgressTrackerProps) {
   const { t, language } = useLanguageStore()
@@ -36,6 +38,7 @@ export function ProgressTracker({
             const isAnswered = answeredQuestions.has(i)
             const isCurrent = i === currentQuestion
             const isSkipped = skippedQuestions.has(i)
+            const isInvalid = invalidQuestions.has(i)
             const questionName = questions[i]?.name[language] || `${t("question")} ${questionNumber}`
 
             return (
@@ -48,10 +51,15 @@ export function ProgressTracker({
                   !isSkipped && "hover:bg-accent hover:text-accent-foreground",
                   isCurrent && "bg-primary text-primary-foreground hover:bg-primary/90",
                   !isCurrent &&
+                    isInvalid &&
+                    !isSkipped &&
+                    "bg-red-500/20 text-red-700 dark:text-red-400 hover:bg-red-500/30",
+                  !isCurrent &&
                     isAnswered &&
+                    !isInvalid &&
                     !isSkipped &&
                     "bg-green-500/20 text-green-700 dark:text-green-400 hover:bg-green-500/30",
-                  !isCurrent && !isAnswered && !isSkipped && "hover:bg-accent",
+                  !isCurrent && !isAnswered && !isSkipped && !isInvalid && "hover:bg-accent",
                   isSkipped && "opacity-40 cursor-not-allowed bg-muted",
                 )}
               >
@@ -59,8 +67,9 @@ export function ProgressTracker({
                   className={cn(
                     "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-all",
                     isCurrent && !isSkipped && "border-primary-foreground bg-primary-foreground/20",
-                    !isCurrent && isAnswered && !isSkipped && "border-green-600 bg-green-500/30 dark:border-green-500",
-                    !isCurrent && !isAnswered && !isSkipped && "border-muted-foreground/30",
+                    !isCurrent && isInvalid && !isSkipped && "border-red-600 bg-red-500/30 dark:border-red-500",
+                    !isCurrent && isAnswered && !isInvalid && !isSkipped && "border-green-600 bg-green-500/30 dark:border-green-500",
+                    !isCurrent && !isAnswered && !isSkipped && !isInvalid && "border-muted-foreground/30",
                     isSkipped && "border-muted-foreground/20 bg-muted",
                   )}
                 >
