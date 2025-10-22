@@ -77,6 +77,19 @@ export default function QuestionnairePage() {
 
   skippedQuestions.forEach((index) => answeredQuestions.add(index))
 
+  // Check if all non-skipped questions are answered and valid
+  const allAnsweredAndValid = questions.every((q, idx) => {
+    // Skip skipped questions
+    if (skippedQuestions.has(idx)) return true
+    // Check if answered
+    if (!answeredQuestions.has(idx)) return false
+    // Check if valid (not in invalid set)
+    if (invalidQuestions.has(idx)) return false
+    return true
+  })
+
+  const canSubmit = allAnsweredAndValid && isLastQuestion
+
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       let nextIndex = currentQuestionIndex + 1
@@ -202,7 +215,11 @@ export default function QuestionnairePage() {
               </Button>
 
               {isLastQuestion ? (
-                <Button onClick={handleSubmit} className="flex items-center gap-2">
+                <Button 
+                  onClick={handleSubmit} 
+                  className="flex items-center gap-2"
+                  disabled={!canSubmit}
+                >
                   {t("submit")}
                 </Button>
               ) : (
