@@ -1,8 +1,10 @@
 from dotenv import load_dotenv
 import json
+from io import BytesIO
 
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pypdf import PdfWriter, PdfReader
 
 # TODO: Better way to handle environment variables (maybe use a config class)
@@ -46,12 +48,16 @@ def generate_pdf(pdf_data: dict):
         else:
             update_dict[alias_map[alias]] = value
 
-    # Generate PDF
+    # Generate PDF in memory
     reader = PdfReader("i-589.pdf")
     writer = PdfWriter(reader)
     writer.update_page_form_field_values(writer.pages[0], update_dict)
 
-    with open("i-589-filled-example.pdf", "wb") as output_file:
-        writer.write(output_file)
-
-    return {"message": "PDF generated successfully"}
+    # Return PDF as response so the user can download it
+    pdf_bytes = BytesIO()
+    writer.write(pdf_bytes)
+    return Response(
+        content=pdf_bytes.getvalue(),
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=i-589-filled.pdf"}
+    )
