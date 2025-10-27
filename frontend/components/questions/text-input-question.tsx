@@ -149,7 +149,7 @@ export function TextInputQuestion({ value, onChange, placeholder, inputType }: T
   }
 
   return (
-    <div className="space-y-2">
+    <div>
       <Input
         ref={inputRef}
         type="text"
@@ -157,10 +157,9 @@ export function TextInputQuestion({ value, onChange, placeholder, inputType }: T
         onChange={handleChange}
         onBlur={() => setTouched(true)}
         placeholder={placeholder || (hint && (hint as any)[language])}
-        className="text-lg p-6 h-auto"
       />
       {!isValid && touched && (
-        <div className="text-sm text-red-600">{language === "es" ? "Entrada inválida" : language === "fr" ? "Entrée invalide" : "Invalid input"}</div>
+        <div className="text-sm text-red-600 mt-1">{language === "es" ? "Entrada inválida" : language === "fr" ? "Entrée invalide" : "Invalid input"}</div>
       )}
     </div>
   )
