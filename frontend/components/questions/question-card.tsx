@@ -28,7 +28,7 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
           <TextInputQuestion
             value={(value as string) || ""}
             onChange={onChange as (value: string) => void}
-            placeholder={(f.placeholder && (f.placeholder as any)[language]) || (f.label as any)[language]}
+            placeholder={(f.placeholder && (f.placeholder as any)[language]) || (f.label && (f.label as any)[language]) || ""}
             inputType={f.inputType}
           />
         )

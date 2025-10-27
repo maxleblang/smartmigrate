@@ -20,8 +20,10 @@ export function RepeatableGroupQuestion({ question, value, onChange }: Repeatabl
   )
 
   const { language } = useLanguageStore()
+  const maxEntries = question.maxEntries
 
   const handleAdd = () => {
+    if (maxEntries && items.length >= maxEntries) return
     const newItem = fields.reduce((acc, f) => ({ ...acc, [f.key]: "" }), {})
     const newItems = [...items, newItem]
     setItems(newItems)
@@ -29,6 +31,8 @@ export function RepeatableGroupQuestion({ question, value, onChange }: Repeatabl
   }
 
   const handleRemove = (index: number) => {
+    // Prevent removing the last item if only one is allowed
+    if ((maxEntries === 1 && items.length === 1) || items.length === 1) return
     const newItems = items.filter((_, i) => i !== index)
     setItems(newItems)
     onChange(newItems)
@@ -65,17 +69,21 @@ export function RepeatableGroupQuestion({ question, value, onChange }: Repeatabl
             ))}
           </div>
 
-          <div className="flex justify-end">
-            <Button variant="destructive" onClick={() => handleRemove(idx)}>
-              Remove
-            </Button>
-          </div>
+          {(!(maxEntries === 1 && items.length === 1)) && items.length > 1 && (
+            <div className="flex justify-end">
+              <Button variant="destructive" onClick={() => handleRemove(idx)}>
+                Remove
+              </Button>
+            </div>
+          )}
         </div>
       ))}
 
-      <div>
-        <Button onClick={handleAdd}>Add</Button>
-      </div>
+      {(!maxEntries || items.length < maxEntries) && (
+        <div>
+          <Button onClick={handleAdd}>Add</Button>
+        </div>
+      )}
     </div>
   )
 }

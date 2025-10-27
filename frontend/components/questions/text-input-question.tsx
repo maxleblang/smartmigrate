@@ -113,12 +113,12 @@ export function TextInputQuestion({ value, onChange, placeholder, inputType }: T
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target
-    const oldValue = value
+    const oldValue = value || ""
     const oldCursorPos = input.selectionStart || 0
     const newRaw = input.value
     const newFormatted = maskInputValue(newRaw)
 
-    const oldDigitCount = oldValue.replace(/\D/g, "").length
+    const oldDigitCount = (oldValue as string).replace(/\D/g, "").length
     const newDigitCount = newFormatted.replace(/\D/g, "").length
     const digitsAdded = newDigitCount - oldDigitCount
     
