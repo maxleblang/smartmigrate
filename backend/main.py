@@ -42,7 +42,7 @@ def generate_pdf(pdf_data: dict):
     # Map incoming data to PDF fields
     update_dict = {}
     for alias, value in pdf_data.items():
-        if isinstance(alias_map[alias], dict):
+        if isinstance(alias_map[alias], list):
             # Handle checkbox logic
             update_dict.update(alias_map[alias][value])
         else:

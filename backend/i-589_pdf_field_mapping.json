@@ -21,45 +21,27 @@
   "AI_9_city": "form1[0].#subform[0].PtAILine9_City[0]",
   "AI_9_state": "form1[0].#subform[0].PtAILine9_State[0]",
   "AI_9_zip": "form1[0].#subform[0].PtAILine9_ZipCode[0]",
-  "AI_10": {
-    "male": {
-      "form1[0].#subform[0].PartALine9Sex[0]": "/M"
-    },
-    "female": {
-      "form1[0].#subform[0].PartALine9Sex[1]": "/F"
-    }
-  },
-  "AI_11": {
-    "single": {
-      "form1[0].#subform[0].Marital[0]": "/S"
-    },
-    "married": {
-      "form1[0].#subform[0].Marital[1]": "/M"
-    },
-    "divorced": {
-      "form1[0].#subform[0].Marital[2]": "/D"
-    },
-    "widowed": {
-      "form1[0].#subform[0].Marital[3]": "/W" 
-    }
-  },
+  "AI_10": [
+    {"form1[0].#subform[0].PartALine9Sex[0]": "/M"},
+    {"form1[0].#subform[0].PartALine9Sex[1]": "/F"}
+  ],
+  "AI_11": [
+    {"form1[0].#subform[0].Marital[0]": "/S"},
+    {"form1[0].#subform[0].Marital[1]": "/M"},
+    {"form1[0].#subform[0].Marital[2]": "/D"},
+    {"form1[0].#subform[0].Marital[3]": "/W"}
+  ],
   "AI_12": "form1[0].#subform[0].DateTimeField1[0]",
   "AI_13": "form1[0].#subform[0].TextField1[4]",
   "AI_14": "form1[0].#subform[0].TextField1[3]",
   "AI_15": "form1[0].#subform[0].TextField1[5]",
   "AI_16": "form1[0].#subform[0].TextField1[6]",
   "AI_17": "form1[0].#subform[0].TextField1[7]",
-  "AI_18": {
-    "a": {
-      "form1[0].#subform[0].CheckBox3[0]": "/A"
-    },
-    "b": {
-      "form1[0].#subform[0].CheckBox3[1]": "/B"
-    },
-    "c": {
-      "form1[0].#subform[0].CheckBox3[2]": "/C"
-    }
-  },
+  "AI_18": [
+    {"form1[0].#subform[0].CheckBox3[0]": "/A"},
+    {"form1[0].#subform[0].CheckBox3[1]": "/B"},
+    {"form1[0].#subform[0].CheckBox3[2]": "/C"}
+  ],
   "AI_19_a": "form1[0].#subform[0].DateTimeField6[0]",
   "AI_19_b": "form1[0].#subform[0].TextField3[0]",
   "AI_19_c_1_date": "form1[0].#subform[0].DateTimeField2[0]",
@@ -77,13 +59,9 @@
   "AI_21_travel": "form1[0].#subform[0].TextField5[2]",
   "AI_22": "form1[0].#subform[0].DateTimeField2[2]",
   "AI_23": "form1[0].#subform[0].TextField7[0]",
-  "AI_24": {
-    "yes": {
-      "form1[0].#subform[0].CheckBox4[0]": "/Yes"
-    },
-    "no": {
-      "form1[0].#subform[0].CheckBox4[1]": "/No"
-    }
-  },
+  "AI_24": [
+    {"form1[0].#subform[0].CheckBox4[0]": "/Yes"},
+    {"form1[0].#subform[0].CheckBox4[1]": "/No"}
+  ],
   "AI_25": "form1[0].#subform[0].TextField7[1]"
 }

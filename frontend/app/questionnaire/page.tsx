@@ -10,6 +10,8 @@ import { Card } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useLanguageStore } from "@/stores/language-store"
 import { useQuestionnaireStore } from "@/stores/questionnaire-store"
+import { serializeAnswers } from "@/lib/answer-serializer"
+import { useState } from "react"
 
 export default function QuestionnairePage() {
   const { t, language } = useLanguageStore()
@@ -20,6 +22,7 @@ export default function QuestionnairePage() {
     updateAnswer,
     clearAnswers
   } = useQuestionnaireStore()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Convert answers array to Map for compatibility with existing utils
   const answers = new Map(answersList.map(a => [a.questionId, a.value]))
@@ -88,7 +91,8 @@ export default function QuestionnairePage() {
     return true
   })
 
-  const canSubmit = allAnsweredAndValid && isLastQuestion
+  // Allow submission as long as user is on the last question, regardless of answer completion
+  const canSubmit = isLastQuestion
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -115,9 +119,54 @@ export default function QuestionnairePage() {
   }
 
   const handleSubmit = () => {
-    console.log("Submitted answers:", answersList)
-    alert("Questionnaire submitted! Check console for answers.")
-    clearAnswers()
+    setIsSubmitting(true)
+    try {
+      // Serialize answers to JSON format matching example.json
+      const serializedData = serializeAnswers(answersList, questions)
+      
+      console.log("Serialized data to send:", serializedData)
+      
+      // Send to backend
+      fetch("http://localhost:8000/generate_pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(serializedData),
+      })
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+          }
+          // Get the PDF blob
+          const blob = await response.blob()
+          
+          // Create a download link and trigger download
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement("a")
+          a.href = url
+          a.download = "i-589-filled.pdf"
+          document.body.appendChild(a)
+          a.click()
+          window.URL.revokeObjectURL(url)
+          document.body.removeChild(a)
+          
+          console.log("PDF generated and downloaded successfully")
+          alert("PDF generated and downloaded successfully!")
+          // clearAnswers()
+        })
+        .catch((error) => {
+          console.error("Error generating PDF:", error)
+          alert(`Error generating PDF: ${error.message}`)
+        })
+        .finally(() => {
+          setIsSubmitting(false)
+        })
+    } catch (error) {
+      console.error("Error serializing answers:", error)
+      alert(`Error preparing submission: ${error}`)
+      setIsSubmitting(false)
+    }
   }
 
   const handleAnswerChange = (value: string | string[] | Array<Record<string, string>>) => {
@@ -218,9 +267,9 @@ export default function QuestionnairePage() {
                 <Button 
                   onClick={handleSubmit} 
                   className="flex items-center gap-2"
-                  disabled={!canSubmit}
+                  disabled={!canSubmit || isSubmitting}
                 >
-                  {t("submit")}
+                  {isSubmitting ? "Submitting..." : t("submit")}
                 </Button>
               ) : (
                 <Button onClick={handleNext} className="flex items-center gap-2">
