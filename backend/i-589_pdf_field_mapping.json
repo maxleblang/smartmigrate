@@ -39,8 +39,8 @@
   "AI_17": "form1[0].#subform[0].TextField1[7]",
   "AI_18": [
     {"form1[0].#subform[0].CheckBox3[0]": "/A"},
-    {"form1[0].#subform[0].CheckBox3[1]": "/B"},
-    {"form1[0].#subform[0].CheckBox3[2]": "/C"}
+    {"form1[0].#subform[0].CheckBox3[2]": "/B"},
+    {"form1[0].#subform[0].CheckBox3[1]": "/C"}
   ],
   "AI_19_a": "form1[0].#subform[0].DateTimeField6[0]",
   "AI_19_b": "form1[0].#subform[0].TextField3[0]",

@@ -239,13 +239,25 @@ export const i589_part_a_questions: Question[] = [
   // 18. Current U.S. immigration status (three options a/b/c)
   {
     id: "a18",
-    name: { en: "Current U.S. immigration status", es: "Estatus migratorio actual en EE. UU.", fr: "Statut d'immigration actuel aux É.-U." },
+    name: { en: "Immigration Court proceedings", es: "Procedimientos de la corte de inmigración", fr: "Procédures judiciaires en matière d'immigration" },
     type: "multipleChoice",
-    text: { en: "Select one option (a, b, or c) as shown on the form", es: "Seleccione una opción (a, b o c) tal como aparece en el formulario", fr: "Sélectionnez une option (a, b ou c) comme indiqué sur le formulaire" },
+    text: { en: "Check the box, a through c, that applies:", es: "Marque la casilla, a a c, que aplique:", fr: "Cochez la case, a à c, qui s'applique:" },
     options: {
-      en: ["a", "b", "c"],
-      es: ["a", "b", "c"],
-      fr: ["a", "b", "c"],
+      en: [
+        "a. I have never been in Immigration Court proceedings.",
+        "b. I am now in Immigration Court proceedings.",
+        "c. I am not now in Immigration Court proceedings, but I have been in the past."
+      ],
+      es: [
+        "a. Nunca he estado en procedimientos de la Corte de Inmigración.",
+        "b. Actualmente estoy en procedimientos de la Corte de Inmigración.",
+        "c. No estoy actualmente en procedimientos de la Corte de Inmigración, pero lo he estado en el pasado."
+      ],
+      fr: [
+        "a. Je n'ai jamais participé à des procédures judiciaires en immigration.",
+        "b. Je suis actuellement dans des procédures judiciaires en immigration.",
+        "c. Je ne suis pas actuellement dans des procédures judiciaires en immigration, mais je l'ai été dans le passé."
+      ]
     },
     entryFields: [
       { key: "AI_18" },
