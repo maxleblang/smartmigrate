@@ -278,10 +278,10 @@ export const i589_part_a_questions: Question[] = [
     text: { en: "If you entered the U.S. more than once, list each entry", es: "Si ingresó a EE. UU. más de una vez, enumere cada entrada", fr: "Si vous êtes entré aux É.-U. plus d'une fois, listez chaque entrée" },
     entryLabel: { en: "Entry", es: "Entrada", fr: "Entrée" },
     entryFields: [
-      { key: "AI_19_c_1_date", label: { en: "Date (MM/DD/YYYY)", es: "Fecha (MM/DD/AAAA)", fr: "Date (JJ/MM/AAAA)" }, inputType: "date" },
-      { key: "AI_19_c_1_place", label: { en: "Place", es: "Lugar", fr: "Lieu" } },
-      { key: "AI_19_c_1_status", label: { en: "Status at entry", es: "Estatus al entrar", fr: "Statut à l'entrée" } },
-      { key: "AI_19_c_1_exp", label: { en: "Expiration (MM/DD/YYYY)", es: "Vencimiento (MM/DD/AAAA)", fr: "Expiration (JJ/MM/AAAA)" }, inputType: "date" },
+      { key: "AI_19_c_date", label: { en: "Date (MM/DD/YYYY)", es: "Fecha (MM/DD/AAAA)", fr: "Date (JJ/MM/AAAA)" }, inputType: "date" },
+      { key: "AI_19_c_place", label: { en: "Place", es: "Lugar", fr: "Lieu" } },
+      { key: "AI_19_c_status", label: { en: "Status at entry", es: "Estatus al entrar", fr: "Statut à l'entrée" } },
+      { key: "AI_19_c_exp", label: { en: "Expiration (MM/DD/YYYY)", es: "Vencimiento (MM/DD/AAAA)", fr: "Expiration (JJ/MM/AAAA)" }, inputType: "date" },
     ],
   },
 

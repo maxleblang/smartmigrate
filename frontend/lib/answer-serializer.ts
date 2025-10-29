@@ -81,16 +81,22 @@ export function serializeAnswers(
       // Structured repeatable entries (array of objects)
       else if (answer.value.length > 0 && typeof answer.value[0] === "object") {
         const entries = answer.value as Array<Record<string, string>>
+        // Only append entry numbers if the question allows multiple entries (no maxEntries or maxEntries > 1)
+        const allowsMultipleEntries = !question.maxEntries || question.maxEntries > 1
+        
         entries.forEach((entry, entryIndex) => {
           if (question.entryFields) {
             for (const field of question.entryFields) {
               const value = entry[field.key]
               if (value && value.trim() !== "") {
+                // Append entry number (1-indexed) to the key only if multiple entries are allowed
+                const fieldKey = allowsMultipleEntries ? `${field.key}_${entryIndex + 1}` : field.key
+                
                 // Handle phone fields: extract area code and store separately
                 if (field.inputType === "phone" && field.key.endsWith("_phone")) {
-                  serializePhoneField(value, field.key, serialized)
+                  serializePhoneField(value, fieldKey, serialized)
                 } else {
-                  serialized[field.key] = value
+                  serialized[fieldKey] = value
                 }
               }
             }
