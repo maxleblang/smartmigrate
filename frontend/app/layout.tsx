@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "SmartMigrate",
   description: "Multilingual Questionnaire App",
   generator: "v0.app",
+  icons: {
+    icon: "/logo.png",
+  },
 }
 
 export default function RootLayout({
