@@ -50,6 +50,7 @@ export function MobileProgress({
         <div className="space-y-3">
           {Object.entries(questionGroups).map(([groupName, group]) => {
             const isExpanded = expandedGroups.has(groupName)
+            const displayName = group.name ? group.name[language] : groupName
 
             return (
               <div key={groupName}>
@@ -63,7 +64,7 @@ export function MobileProgress({
                       !isExpanded && "-rotate-90"
                     )}
                   />
-                  {groupName}
+                  {displayName}
                 </button>
 
                 {isExpanded && (

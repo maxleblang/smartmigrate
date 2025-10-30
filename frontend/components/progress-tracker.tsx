@@ -107,6 +107,7 @@ export function ProgressTracker({
           <div className="space-y-3 pr-4">
             {Object.entries(questionGroups).map(([groupName, group]) => {
               const isExpanded = expandedGroups.has(groupName)
+              const displayName = group.name ? group.name[language] : groupName
 
               return (
                 <div key={groupName} className="space-y-2">
@@ -120,7 +121,7 @@ export function ProgressTracker({
                         !isExpanded && "-rotate-90"
                       )}
                     />
-                    <span className="text-sm font-semibold">{groupName}</span>
+                    <span className="text-sm font-semibold">{displayName}</span>
                   </button>
 
                   {isExpanded && (

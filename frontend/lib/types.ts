@@ -61,6 +61,10 @@ export interface Answer {
 }
 
 export interface QuestionGroup {
-  name: string
+  name?: {
+    en: string
+    es: string
+    fr: string
+  }
   questions: Question[]
 }

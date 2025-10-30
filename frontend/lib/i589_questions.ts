@@ -362,10 +362,63 @@ const ai_questions: Question[] = [
   },
 ]
 
+// A.II — Spouse Information
+const aii_spouse_questions: Question[] = [
+  // 1. Are you married?
+  {
+    id: "a_ii_1",
+    name: { en: "Marital Status", es: "Estado civil", fr: "État civil" },
+    type: "multipleChoice",
+    text: { en: "Are you married?", es: "¿Está casado?", fr: "Êtes-vous marié ?" },
+    options: {
+      en: ["yes", "no"],
+      es: ["sí", "no"],
+      fr: ["oui", "non"],
+    },
+    entryFields: [
+      { key: "AII_1" },
+    ],
+  },
+]
+
+// A.II — Children Information
+const aii_children_questions: Question[] = [
+  // 1. How many children do you have?
+  {
+    id: "a_ii_children_1",
+    name: { en: "Number of Children", es: "Número de hijos", fr: "Nombre d'enfants" },
+    type: "text",
+    text: { en: "How many children do you have?", es: "¿Cuántos hijos tiene?", fr: "Combien d'enfants avez-vous ?" },
+    entryFields: [
+      { key: "AII_Children_1", placeholder: { en: "Number", es: "Número", fr: "Nombre" } },
+    ],
+  },
+]
+
 // Grouped questions structure for I-589 form
 export const i589_questions: Record<string, QuestionGroup> = {
   "A.I": {
-    name: "A.I",
+    name: {
+      en: "A.I",
+      es: "A.I",
+      fr: "A.I",
+    },
     questions: ai_questions,
+  },
+  "A.II Spouse": {
+    name: {
+      en: "A.II Spouse",
+      es: "A.II Cónyuge",
+      fr: "A.II Conjoint",
+    },
+    questions: aii_spouse_questions,
+  },
+  "A.II Children": {
+    name: {
+      en: "A.II Children",
+      es: "A.II Hijos",
+      fr: "A.II Enfants",
+    },
+    questions: aii_children_questions,
   },
 }
