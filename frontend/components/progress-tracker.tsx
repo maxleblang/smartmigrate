@@ -6,6 +6,7 @@ import type { Question, QuestionGroup } from "@/lib/types"
 import { useLanguageStore } from "@/stores/language-store"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
+import { getVisibleQuestionGroups } from "@/lib/question-utils"
 
 interface ProgressTrackerProps {
   questions: Question[]
@@ -16,6 +17,7 @@ interface ProgressTrackerProps {
   invalidQuestions?: Set<number>
   onQuestionClick: (index: number) => void
   questionGroups?: Record<string, QuestionGroup>
+  answers?: Map<string, string | string[] | Array<Record<string, string>>>
 }
 
 export function ProgressTracker({
@@ -27,6 +29,7 @@ export function ProgressTracker({
   invalidQuestions = new Set(),
   onQuestionClick,
   questionGroups,
+  answers = new Map(),
 }: ProgressTrackerProps) {
   const { t, language } = useLanguageStore()
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
@@ -99,15 +102,26 @@ export function ProgressTracker({
 
   // If groups are provided, render grouped view
   if (questionGroups && Object.keys(questionGroups).length > 0) {
+    const visibleGroups = getVisibleQuestionGroups(questionGroups, answers, questions)
+    
     return (
       <div className="bg-card border-r border-border h-screen flex flex-col p-6">
         <h2 className="text-lg font-semibold text-card-foreground mb-6 flex-shrink-0">{t("progress")}</h2>
 
         <ScrollArea className="flex-1 min-h-0">
           <div className="space-y-3 pr-4">
-            {Object.entries(questionGroups).map(([groupName, group]) => {
+            {Object.entries(visibleGroups).map(([groupName, group]) => {
               const isExpanded = expandedGroups.has(groupName)
               const displayName = group.name ? group.name[language] : groupName
+              const isSingleQuestion = group.questions.length === 1
+
+              // Render single questions without grouping
+              if (isSingleQuestion) {
+                const question = group.questions[0]
+                const globalIndex = questions.findIndex((q) => q.id === question.id)
+                const questionNumber = globalIndex + 1
+                return renderQuestionButton(globalIndex, questionNumber)
+              }
 
               return (
                 <div key={groupName} className="space-y-2">

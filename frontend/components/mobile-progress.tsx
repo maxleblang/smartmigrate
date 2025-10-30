@@ -5,6 +5,7 @@ import { Check, ChevronDown } from "lucide-react"
 import { useState } from "react"
 import type { Question, QuestionGroup } from "@/lib/types"
 import { useLanguageStore } from "@/stores/language-store"
+import { getVisibleQuestionGroups } from "@/lib/question-utils"
 
 interface MobileProgressProps {
   questions: Question[]
@@ -14,6 +15,7 @@ interface MobileProgressProps {
   skippedQuestions: Set<number>
   onQuestionClick: (index: number) => void
   questionGroups?: Record<string, QuestionGroup>
+  answers?: Map<string, string | string[] | Array<Record<string, string>>>
 }
 
 export function MobileProgress({
@@ -24,6 +26,7 @@ export function MobileProgress({
   skippedQuestions,
   onQuestionClick,
   questionGroups,
+  answers = new Map(),
 }: MobileProgressProps) {
   const { t, language } = useLanguageStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -45,12 +48,52 @@ export function MobileProgress({
 
   const renderQuestionGrid = () => {
     if (questionGroups && Object.keys(questionGroups).length > 0) {
+      const visibleGroups = getVisibleQuestionGroups(questionGroups, answers, questions)
+      
       // Grouped view
       return (
         <div className="space-y-3">
-          {Object.entries(questionGroups).map(([groupName, group]) => {
+          {Object.entries(visibleGroups).map(([groupName, group]) => {
             const isExpanded = expandedGroups.has(groupName)
             const displayName = group.name ? group.name[language] : groupName
+            const isSingleQuestion = group.questions.length === 1
+
+            // Render single questions in a grid without a group header
+            if (isSingleQuestion) {
+              const question = group.questions[0]
+              const globalIndex = questions.findIndex((q) => q.id === question.id)
+              const isAnswered = answeredQuestions.has(globalIndex)
+              const isCurrent = globalIndex === currentQuestion
+              const isSkipped = skippedQuestions.has(globalIndex)
+
+              return (
+                <div key={groupName} className="grid grid-cols-5 gap-2">
+                  <button
+                    onClick={() => {
+                      onQuestionClick(globalIndex)
+                      setIsOpen(false)
+                    }}
+                    disabled={isSkipped}
+                    className={cn(
+                      "aspect-square rounded-lg flex items-center justify-center border-2 transition-all text-xs",
+                      isCurrent && !isSkipped && "border-primary bg-primary text-primary-foreground",
+                      !isCurrent &&
+                        isAnswered &&
+                        !isSkipped &&
+                        "border-green-600 bg-green-500/20 text-green-700 dark:border-green-500 dark:text-green-400",
+                      !isCurrent && !isAnswered && !isSkipped && "border-muted bg-background",
+                      isSkipped && "opacity-40 cursor-not-allowed border-muted bg-muted",
+                    )}
+                  >
+                    {isAnswered || isSkipped ? (
+                      <Check className="w-3 h-3" />
+                    ) : (
+                      <span className="font-medium">{globalIndex + 1}</span>
+                    )}
+                  </button>
+                </div>
+              )
+            }
 
             return (
               <div key={groupName}>

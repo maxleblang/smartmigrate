@@ -1,4 +1,4 @@
-import type { Question, QuestionCondition, InputType } from "./types"
+import type { Question, QuestionCondition, InputType, QuestionGroup } from "./types"
 
 function validateInputType(inputType: InputType | undefined, value: string): boolean {
   if (!inputType) return true
@@ -155,4 +155,20 @@ export function getSkippedQuestions(questions: Question[], answers: Map<string, 
     }
   })
   return skipped
+}
+
+export function getVisibleQuestionGroups(
+  questionGroups: Record<string, QuestionGroup>,
+  answers: Map<string, string | string[] | Array<Record<string, string>>>,
+  questions: Question[],
+): Record<string, QuestionGroup> {
+  const visibleGroups: Record<string, QuestionGroup> = {}
+  
+  Object.entries(questionGroups).forEach(([groupName, group]) => {
+    if (isQuestionConditionMet(group.condition, answers, questions)) {
+      visibleGroups[groupName] = group
+    }
+  })
+  
+  return visibleGroups
 }

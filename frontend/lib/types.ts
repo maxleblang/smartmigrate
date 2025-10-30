@@ -67,4 +67,5 @@ export interface QuestionGroup {
     fr: string
   }
   questions: Question[]
+  condition?: QuestionCondition
 }

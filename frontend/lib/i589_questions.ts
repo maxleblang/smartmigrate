@@ -362,9 +362,8 @@ const ai_questions: Question[] = [
   },
 ]
 
-// A.II — Spouse Information
-const aii_spouse_questions: Question[] = [
-  // 1. Are you married?
+// A.II — Marital Status (Standalone)
+const aii_married_conditional: Question[] = [
   {
     id: "a_ii_spouse",
     name: { en: "Marital Status", es: "Estado civil", fr: "État civil" },
@@ -379,7 +378,10 @@ const aii_spouse_questions: Question[] = [
       { key: "AII_spouse" },
     ],
   },
+]
 
+// A.II — Spouse Information
+const aii_spouse_questions: Question[] = [
   // 2. Alien Registration Number (A-Number)
   {
     id: "a_ii_spouse_1",
@@ -666,10 +668,10 @@ const aii_spouse_questions: Question[] = [
 ]
 
 // A.II — Children Information
-const aii_children_questions: Question[] = [
+const aii_children_number: Question[] = [
   // 1. How many children do you have?
   {
-    id: "a_ii_children_1",
+    id: "a_ii_children",
     name: { en: "Number of Children", es: "Número de hijos", fr: "Nombre d'enfants" },
     type: "text",
     text: { en: "How many children do you have?", es: "¿Cuántos hijos tiene?", fr: "Combien d'enfants avez-vous ?" },
@@ -689,6 +691,14 @@ export const i589_questions: Record<string, QuestionGroup> = {
     },
     questions: ai_questions,
   },
+  "A.II Married Conditional": {
+    name: {
+      en: "",
+      es: "",
+      fr: "",
+    },
+    questions: aii_married_conditional,
+  },
   "A.II Spouse": {
     name: {
       en: "A.II Spouse",
@@ -696,13 +706,18 @@ export const i589_questions: Record<string, QuestionGroup> = {
       fr: "A.II Conjoint",
     },
     questions: aii_spouse_questions,
-  },
-  "A.II Children": {
-    name: {
-      en: "A.II Children",
-      es: "A.II Hijos",
-      fr: "A.II Enfants",
+    condition: {
+      questionId: "a_ii_spouse",
+      expectedOptionIndex: 0,
+      operator: "equals",
     },
-    questions: aii_children_questions,
+  },
+  "A.II Children Number": {
+    name: {
+      en: "",
+      es: "",
+      fr: "",
+    },
+    questions: aii_children_number,
   },
 }

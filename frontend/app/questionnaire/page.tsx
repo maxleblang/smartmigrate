@@ -2,7 +2,7 @@
 
 import { questions } from "@/lib/questions"
 import { i589_questions } from "@/lib/i589_questions"
-import { getVisibleQuestions, getSkippedQuestions, isQuestionValid } from "@/lib/question-utils"
+import { getVisibleQuestions, getSkippedQuestions, isQuestionValid, getVisibleQuestionGroups } from "@/lib/question-utils"
 import { ProgressTracker } from "@/components/progress-tracker"
 import { MobileProgress } from "@/components/mobile-progress"
 import { QuestionCard } from "@/components/questions/question-card"
@@ -29,6 +29,13 @@ export default function QuestionnairePage() {
   const answers = new Map(answersList.map(a => [a.questionId, a.value]))
   const visibleQuestions = getVisibleQuestions(questions, answers)
   const skippedQuestions = getSkippedQuestions(questions, answers)
+  const visibleGroups = getVisibleQuestionGroups(i589_questions, answers, questions)
+
+  // Calculate total visible questions from groups
+  const totalVisibleQuestionsFromGroups = Object.values(visibleGroups).reduce(
+    (sum, group) => sum + group.questions.length,
+    0
+  )
 
   const currentQuestion = questions[currentQuestionIndex]
 
@@ -211,12 +218,13 @@ export default function QuestionnairePage() {
       <div className="lg:hidden">
         <MobileProgress
           questions={questions}
-          totalQuestions={questions.length}
+          totalQuestions={totalVisibleQuestionsFromGroups}
           currentQuestion={currentQuestionIndex}
           answeredQuestions={answeredQuestions}
           skippedQuestions={skippedQuestions}
           onQuestionClick={handleQuestionClick}
           questionGroups={i589_questions}
+          answers={answers}
         />
       </div>
 
@@ -226,13 +234,14 @@ export default function QuestionnairePage() {
         <div className="hidden lg:block w-80 flex-shrink-0">
           <ProgressTracker
             questions={questions}
-            totalQuestions={questions.length}
+            totalQuestions={totalVisibleQuestionsFromGroups}
             currentQuestion={currentQuestionIndex}
             answeredQuestions={answeredQuestions}
             skippedQuestions={skippedQuestions}
             invalidQuestions={invalidQuestions}
             onQuestionClick={handleQuestionClick}
             questionGroups={i589_questions}
+            answers={answers}
           />
         </div>
 
