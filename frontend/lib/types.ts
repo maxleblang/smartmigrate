@@ -59,3 +59,8 @@ export interface Answer {
   // For repeatable structured entries, value can be an array of objects mapping field keys to string values
   value: string | string[] | Array<Record<string, string>>
 }
+
+export interface QuestionGroup {
+  name: string
+  questions: Question[]
+}

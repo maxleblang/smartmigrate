@@ -1,7 +1,7 @@
-import type { Question } from "./types"
+import type { Question, QuestionGroup } from "./types"
 
 // I-589 Part A.I — Information About You (aligned with PDF field mapping and AI_1..AI_25 keys)
-export const i589_part_a_questions: Question[] = [
+const ai_questions: Question[] = [
   // 1. Alien Registration Number (A-Number)
   {
     id: "a1",
@@ -361,3 +361,11 @@ export const i589_part_a_questions: Question[] = [
     ],
   },
 ]
+
+// Grouped questions structure for I-589 form
+export const i589_questions: Record<string, QuestionGroup> = {
+  "A.I": {
+    name: "A.I",
+    questions: ai_questions,
+  },
+}

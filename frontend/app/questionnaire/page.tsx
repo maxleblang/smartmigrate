@@ -1,6 +1,7 @@
 "use client"
 
 import { questions } from "@/lib/questions"
+import { i589_questions } from "@/lib/i589_questions"
 import { getVisibleQuestions, getSkippedQuestions, isQuestionValid } from "@/lib/question-utils"
 import { ProgressTracker } from "@/components/progress-tracker"
 import { MobileProgress } from "@/components/mobile-progress"
@@ -215,6 +216,7 @@ export default function QuestionnairePage() {
           answeredQuestions={answeredQuestions}
           skippedQuestions={skippedQuestions}
           onQuestionClick={handleQuestionClick}
+          questionGroups={i589_questions}
         />
       </div>
 
@@ -230,6 +232,7 @@ export default function QuestionnairePage() {
             skippedQuestions={skippedQuestions}
             invalidQuestions={invalidQuestions}
             onQuestionClick={handleQuestionClick}
+            questionGroups={i589_questions}
           />
         </div>
 
