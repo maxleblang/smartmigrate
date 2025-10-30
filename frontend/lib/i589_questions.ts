@@ -366,7 +366,7 @@ const ai_questions: Question[] = [
 const aii_spouse_questions: Question[] = [
   // 1. Are you married?
   {
-    id: "a_ii_1",
+    id: "a_ii_spouse",
     name: { en: "Marital Status", es: "Estado civil", fr: "État civil" },
     type: "multipleChoice",
     text: { en: "Are you married?", es: "¿Está casado?", fr: "Êtes-vous marié ?" },
@@ -376,7 +376,291 @@ const aii_spouse_questions: Question[] = [
       fr: ["oui", "non"],
     },
     entryFields: [
-      { key: "AII_1" },
+      { key: "AII_spouse" },
+    ],
+  },
+
+  // 2. Alien Registration Number (A-Number)
+  {
+    id: "a_ii_spouse_1",
+    name: { en: "Spouse Alien Registration Number", es: "Número A del cónyuge", fr: "Numéro A du conjoint" },
+    type: "text",
+    text: { en: "Alien Registration Number (A-Number) (if any)", es: "Número de Registro de Extranjero (Número A) (si tiene)", fr: "Numéro d'enregistrement d'étranger (Numéro A) (le cas échéant)" },
+    entryFields: [
+      { key: "AII_spouse_1", placeholder: { en: "A-Number", es: "Número A", fr: "Numéro A" } },
+    ],
+  },
+
+  // 3. Passport/ID Card Number
+  {
+    id: "a_ii_spouse_2",
+    name: { en: "Spouse Passport/ID Card Number", es: "Número de pasaporte/cédula del cónyuge", fr: "Numéro de passeport/carte d'identité du conjoint" },
+    type: "text",
+    text: { en: "Passport/ID Card Number (if any)", es: "Número de pasaporte/cédula de identidad (si tiene)", fr: "Numéro de passeport/carte d'identité (le cas échéant)" },
+    entryFields: [
+      { key: "AII_spouse_2" },
+    ],
+  },
+
+  // 4. Date of Birth
+  {
+    id: "a_ii_spouse_3",
+    name: { en: "Spouse Date of Birth", es: "Fecha de nacimiento del cónyuge", fr: "Date de naissance du conjoint" },
+    type: "text",
+    text: { en: "Date of Birth (mm/dd/yyyy)", es: "Fecha de nacimiento (mm/dd/yyyy)", fr: "Date de naissance (mm/dd/yyyy)" },
+    entryFields: [
+      { key: "AII_spouse_3", placeholder: { en: "mm/dd/yyyy", es: "mm/dd/yyyy", fr: "mm/dd/yyyy" }, inputType: "date" },
+    ],
+  },
+
+  // 5. U.S. Social Security Number
+  {
+    id: "a_ii_spouse_4",
+    name: { en: "Spouse U.S. Social Security Number", es: "Número de Seguro Social del cónyuge", fr: "Numéro de sécurité sociale US du conjoint" },
+    type: "text",
+    text: { en: "U.S. Social Security Number (if any)", es: "Número de Seguro Social de EE. UU. (si tiene)", fr: "Numéro de sécurité sociale des États-Unis (le cas échéant)" },
+    entryFields: [
+      { key: "AII_spouse_4", placeholder: { en: "___-__-____", es: "___-__-____", fr: "___-__-____" }, inputType: "ssn" },
+    ],
+  },
+
+  // 6. Complete Last Name
+  {
+    id: "a_ii_spouse_5",
+    name: { en: "Spouse Last Name", es: "Apellido del cónyuge", fr: "Nom de famille du conjoint" },
+    type: "text",
+    text: { en: "Complete Last Name", es: "Apellido completo", fr: "Nom de famille complet" },
+    entryFields: [
+      { key: "AII_spouse_5", placeholder: { en: "Last name", es: "Apellido", fr: "Nom de famille" } },
+    ],
+  },
+
+  // 7. First Name
+  {
+    id: "a_ii_spouse_6",
+    name: { en: "Spouse First Name", es: "Nombre del cónyuge", fr: "Prénom du conjoint" },
+    type: "text",
+    text: { en: "First Name", es: "Nombre (de pila)", fr: "Prénom" },
+    entryFields: [
+      { key: "AII_spouse_6", placeholder: { en: "First name", es: "Nombre", fr: "Prénom" } },
+    ],
+  },
+
+  // 8. Middle Name
+  {
+    id: "a_ii_spouse_7",
+    name: { en: "Spouse Middle Name", es: "Segundo nombre del cónyuge", fr: "Deuxième prénom du conjoint" },
+    type: "text",
+    text: { en: "Middle Name", es: "Segundo nombre", fr: "Deuxième prénom" },
+    entryFields: [
+      { key: "AII_spouse_7", placeholder: { en: "Middle name", es: "Segundo nombre", fr: "Deuxième prénom" } },
+    ],
+  },
+
+  // 9. Other names used
+  {
+    id: "a_ii_spouse_8",
+    name: { en: "Spouse Other Names Used", es: "Otros nombres del cónyuge", fr: "Autres noms utilisés par le conjoint" },
+    type: "text",
+    text: { en: "Other names used (include maiden name and aliases)", es: "Otros nombres usados (incluya apellido de soltera y alias)", fr: "Autres noms utilisés (inclure nom de jeune fille et alias)" },
+    entryFields: [
+      { key: "AII_spouse_8", placeholder: { en: "List names", es: "Liste los nombres", fr: "Lister les noms" } },
+    ],
+  },
+
+  // 10. Date of Marriage
+  {
+    id: "a_ii_spouse_9",
+    name: { en: "Date of Marriage", es: "Fecha de matrimonio", fr: "Date du mariage" },
+    type: "text",
+    text: { en: "Date of Marriage (mm/dd/yyyy)", es: "Fecha de matrimonio (mm/dd/yyyy)", fr: "Date du mariage (mm/dd/yyyy)" },
+    entryFields: [
+      { key: "AII_spouse_9", placeholder: { en: "mm/dd/yyyy", es: "mm/dd/yyyy", fr: "mm/dd/yyyy" }, inputType: "date" },
+    ],
+  },
+
+  // 11. Place of Marriage
+  {
+    id: "a_ii_spouse_10",
+    name: { en: "Place of Marriage", es: "Lugar del matrimonio", fr: "Lieu du mariage" },
+    type: "text",
+    text: { en: "Place of Marriage", es: "Lugar del matrimonio", fr: "Lieu del mariage" },
+    entryFields: [
+      { key: "AII_spouse_10" },
+    ],
+  },
+
+  // 12. City and Country of Birth
+  {
+    id: "a_ii_spouse_11",
+    name: { en: "Spouse City and Country of Birth", es: "Ciudad y país de nacimiento del cónyuge", fr: "Ville et pays de naissance du conjoint" },
+    type: "text",
+    text: { en: "City and Country of Birth", es: "Ciudad y país de nacimiento", fr: "Ville et pays de naissance" },
+    entryFields: [
+      { key: "AII_spouse_11", placeholder: { en: "City, Country", es: "Ciudad, País", fr: "Ville, Pays" } },
+    ],
+  },
+
+  // 13. Nationality (Citizenship)
+  {
+    id: "a_ii_spouse_12",
+    name: { en: "Spouse Nationality", es: "Nacionalidad del cónyuge", fr: "Nationalité du conjoint" },
+    type: "text",
+    text: { en: "Nationality (Citizenship)", es: "Nacionalidad (Ciudadanía)", fr: "Nationalité (Citoyenneté)" },
+    entryFields: [
+      { key: "AII_spouse_12", placeholder: { en: "Country", es: "País", fr: "Pays" } },
+    ],
+  },
+
+  // 14. Race, Ethnic, or Tribal Group
+  {
+    id: "a_ii_spouse_13",
+    name: { en: "Spouse Race, Ethnic, or Tribal Group", es: "Raza, grupo étnico o tribal del cónyuge", fr: "Race, groupe ethnique ou tribal du conjoint" },
+    type: "text",
+    text: { en: "Race, Ethnic, or Tribal Group", es: "Raza, grupo étnico o tribal", fr: "Race, groupe ethnique ou tribal" },
+    entryFields: [
+      { key: "AII_spouse_13" },
+    ],
+  },
+
+  // 15. Sex
+  {
+    id: "a_ii_spouse_14",
+    name: { en: "Spouse Sex", es: "Sexo del cónyuge", fr: "Sexe du conjoint" },
+    type: "multipleChoice",
+    text: { en: "Sex", es: "Sexo", fr: "Sexe" },
+    options: {
+      en: ["male", "female"],
+      es: ["masculino", "femenino"],
+      fr: ["homme", "femme"],
+    },
+    entryFields: [
+      { key: "AII_spouse_14" },
+    ],
+  },
+
+  // 16. Is this person in the U.S.?
+  {
+    id: "a_ii_spouse_15",
+    name: { en: "Is spouse in the U.S.?", es: "¿Está el cónyuge en EE. UU.?", fr: "Le conjoint est-il aux É.-U. ?" },
+    type: "multipleChoice",
+    text: { en: "Is this person in the U.S.?", es: "¿Está esta persona en EE. UU.?", fr: "Cette personne est-elle aux É.-U. ?" },
+    options: {
+      en: ["Yes (Complete Blocks 16 to 24.)", "No (Specify location):"],
+      es: ["Sí (Complete los bloques 16 al 24.)", "No (Especifique ubicación):"],
+      fr: ["Oui (Remplissez les cases 16 à 24.)", "Non (Précisez l'emplacement):"],
+    },
+    entryFields: [
+      { key: "AII_spouse_15" },
+    ],
+  },
+
+  // 17. Place of last entry into the U.S.
+  {
+    id: "a_ii_spouse_16",
+    name: { en: "Spouse Place of last entry into U.S.", es: "Lugar de la última entrada del cónyuge a EE. UU.", fr: "Lieu de la dernière entrée du conjoint aux É.-U." },
+    type: "text",
+    text: { en: "Place of last entry into the U.S.", es: "Lugar de la última entrada a EE. UU.", fr: "Lieu de la dernière entrée aux É.-U." },
+    entryFields: [
+      { key: "AII_spouse_16" },
+    ],
+  },
+
+  // 18. Date of last entry into the U.S.
+  {
+    id: "a_ii_spouse_17",
+    name: { en: "Spouse Date of last entry into U.S.", es: "Fecha de la última entrada del cónyuge a EE. UU.", fr: "Date de la dernière entrée du conjoint aux É.-U." },
+    type: "text",
+    text: { en: "Date of last entry into the U.S. (mm/dd/yyyy)", es: "Fecha de la última entrada a EE. UU. (mm/dd/yyyy)", fr: "Date de la dernière entrée aux É.-U. (mm/dd/yyyy)" },
+    entryFields: [
+      { key: "AII_spouse_17", placeholder: { en: "mm/dd/yyyy", es: "mm/dd/yyyy", fr: "mm/dd/yyyy" }, inputType: "date" },
+    ],
+  },
+
+  // 19. I-94 Number
+  {
+    id: "a_ii_spouse_18",
+    name: { en: "Spouse I-94 Number", es: "Número I-94 del cónyuge", fr: "Numéro I-94 du conjoint" },
+    type: "text",
+    text: { en: "I-94 Number (if any)", es: "Número I-94 (si tiene)", fr: "Numéro I-94 (le cas échéant)" },
+    entryFields: [
+      { key: "AII_spouse_18" },
+    ],
+  },
+
+  // 20. Status when last admitted
+  {
+    id: "a_ii_spouse_19",
+    name: { en: "Spouse Status when last admitted", es: "Estatus al ser admitido el cónyuge", fr: "Statut lors de la dernière admission du conjoint" },
+    type: "text",
+    text: { en: "Status when last admitted (Visa type, if any)", es: "Estatus al ser admitido (tipo de visa, si tiene)", fr: "Statut lors de la dernière admission (type de visa, le cas échéant)" },
+    entryFields: [
+      { key: "AII_spouse_19" },
+    ],
+  },
+
+  // 21. What is your spouse's current status?
+  {
+    id: "a_ii_spouse_20",
+    name: { en: "Spouse's current status", es: "Estatus actual del cónyuge", fr: "Statut actuel du conjoint" },
+    type: "text",
+    text: { en: "What is your spouse's current status?", es: "¿Cuál es el estatus actual de su cónyuge?", fr: "Quel est le statut actuel de votre conjoint ?" },
+    entryFields: [
+      { key: "AII_spouse_20" },
+    ],
+  },
+
+  // 22. What is the expiration date of his/her authorized stay, if any?
+  {
+    id: "a_ii_spouse_21",
+    name: { en: "Spouse expiration date of authorized stay", es: "Fecha de vencimiento de la estancia autorizada del cónyuge", fr: "Date d'expiration du séjour autorisé du conjoint" },
+    type: "text",
+    text: { en: "What is the expiration date of his/her authorized stay, if any? (mm/dd/yyyy)", es: "¿Cuál es la fecha de vencimiento de su estancia autorizada, si tiene? (mm/dd/yyyy)", fr: "Quelle est la date d'expiration de son séjour autorisé, le cas échéant ? (mm/dd/yyyy)" },
+    entryFields: [
+      { key: "AII_spouse_21", placeholder: { en: "mm/dd/yyyy", es: "mm/dd/yyyy", fr: "mm/dd/yyyy" }, inputType: "date" },
+    ],
+  },
+
+  // 23. Is your spouse in Immigration Court proceedings?
+  {
+    id: "a_ii_spouse_22",
+    name: { en: "Is spouse in Immigration Court proceedings?", es: "¿Está el cónyuge en procedimientos de la corte de inmigración?", fr: "Le conjoint est-il dans des procédures judiciaires en immigration ?" },
+    type: "multipleChoice",
+    text: { en: "Is your spouse in Immigration Court proceedings?", es: "¿Está su cónyuge en procedimientos de la Corte de Inmigración?", fr: "Votre conjoint est-il dans des procédures judiciaires en immigration ?" },
+    options: {
+      en: ["yes", "no"],
+      es: ["sí", "no"],
+      fr: ["oui", "non"],
+    },
+    entryFields: [
+      { key: "AII_spouse_22" },
+    ],
+  },
+
+  // 24. If previously in the U.S., date of previous arrival
+  {
+    id: "a_ii_spouse_23",
+    name: { en: "Spouse If previously in U.S., date of previous arrival", es: "Si estuvo anteriormente en EE. UU., fecha de llegada anterior del cónyuge", fr: "Si le conjoint a été précédemment aux É.-U., date de l'arrivée précédente" },
+    type: "text",
+    text: { en: "If previously in the U.S., date of previous arrival (mm/dd/yyyy)", es: "Si estuvo anteriormente en EE. UU., fecha de llegada anterior (mm/dd/yyyy)", fr: "Si précédemment aux É.-U., date d'arrivée précédente (mm/dd/yyyy)" },
+    entryFields: [
+      { key: "AII_spouse_23", placeholder: { en: "mm/dd/yyyy", es: "mm/dd/yyyy", fr: "mm/dd/yyyy" }, inputType: "date" },
+    ],
+  },
+
+  // 25. If in the U.S., is your spouse to be included in this application?
+  {
+    id: "a_ii_spouse_24",
+    name: { en: "Is spouse to be included in this application?", es: "¿Está el cónyuge en la solicitud?", fr: "Le conjoint est-il inclus dans cette demande ?" },
+    type: "multipleChoice",
+    text: { en: "If in the U.S., is your spouse to be included in this application? (Check the appropriate box.)", es: "Si está en EE. UU., ¿está su cónyuge a ser incluido en esta solicitud? (Marque la casilla apropiada.)", fr: "S'il est aux É.-U., votre conjoint doit-il être inclus dans cette demande ? (Cochez la case appropriée.)" },
+    options: {
+      en: ["yes", "no"],
+      es: ["sí", "no"],
+      fr: ["oui", "non"],
+    },
+    entryFields: [
+      { key: "AII_spouse_24" },
     ],
   },
 ]
